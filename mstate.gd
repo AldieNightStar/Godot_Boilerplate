@@ -1,9 +1,9 @@
 extends Node
 
 # Load
-# var lib = load("res://path/to/this/script").new()
+# var mstate = load("res://path/to/this/script").new()
 
-# var state = lib.init(Node2D)
+# var state = mstate.init(self)
 
 # state.change(stateName, args=[]) # returns true/false. Success or not
 # state.current() # returns current state node
