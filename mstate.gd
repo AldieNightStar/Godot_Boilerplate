@@ -56,7 +56,6 @@ class StateNode extends Node:
 		var prev_state = state
 		state = state_node
 		if prev_state and prev_state.has_method('stop'):
-			print(state, prev_state)
 			prev_state.call("stop", obj)
 		if state.has_method("start"):
 			state.call("start", obj)
