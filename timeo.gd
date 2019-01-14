@@ -3,12 +3,14 @@ extends Node
 # Timeo Script
 # Author: Ihor Fox
 
+# Load
+# var lib = load("res://path/to/this/script").new()
+
 # API
-# var timer = once(sec, obj, method_name, args=[])
-# var timer = repeat(sec, obj, method_name, args=[])
+# var timer = lib.once(sec, obj, method_name, args=[]) # Returns: Timer
+# var timer = lib.repeat(sec, obj, method_name, args=[]) # Returns: Timer
 #	timer.stop()
 #	timer.queue_free()
-# Returns: Timer
 
 # Call operation ONCE after some period
 func once(sec, obj, method_name, args=[]):
