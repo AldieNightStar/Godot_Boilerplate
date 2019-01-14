@@ -5,7 +5,7 @@ extends Node
 
 # var state = lib.init(Node2D)
 
-# state.change(stateName) # returns true/false. Success or not
+# state.change(stateName, args=[]) # returns true/false. Success or not
 # state.current() # returns current state node
 # state.process(delta) # Update state
 
@@ -15,7 +15,7 @@ extends Node
 # 3. Write boilerplate code, like this:
 #	extends Node
 #
-#	func start(player):
+#	func start(player, args):
 #		pass
 #	func stop(player):
 #		pass
@@ -49,7 +49,7 @@ class StateNode extends Node:
 			return null
 		return states_node.get_node(name)
 	
-	func change(name: String):
+	func change(name: String, args=[]):
 		if !name: return false
 		var state_node = _find_state(name)
 		if !state_node: return false
@@ -58,7 +58,7 @@ class StateNode extends Node:
 		if prev_state and prev_state.has_method('stop'):
 			prev_state.call("stop", obj)
 		if state.has_method("start"):
-			state.call("start", obj)
+			state.call("start", obj, args)
 		return true
 	
 	func current():
