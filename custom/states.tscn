@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node
+
+### API ###
+# current() - current state object
+# change(name) - change state
+###
+
+### State funcs ###
+# func start(node, args)
+# func stop(node)
+# func process(node, delta)
+###
+
+export var state = 'start'
+var state_
+export var active = true
+
+func _ready():
+	change(state)
+
+func _physics_process(delta):
+	if !active: return
+	if state_:
+		state_.process(get_parent(), delta)
+		return
+	if has_node(state):
+		var s = get_node(state)
+		if s.has_method('process'):
+			s.process(get_parent(), delta)
+			state_ = s
+		else:
+			print(\"[Stater]: No method 'process' in state: \" + state)
+	else:
+		print(\"[Stater]: No such state: \" + state)
+
+func current():
+	return state_
+
+func change(name, args=[]):
+	if !has_node(name):
+		print(\"[Stater]: No such new state: \" + name)
+		return false
+	# Check for old one
+	if state and has_node(state):
+		# Unload
+		var oldState = get_node(state)
+		if oldState.has_method('stop'):
+			oldState.call(\"stop\", get_parent())
+	# Get new one and load
+	state = name
+	var newState = get_node(name)
+	if !newState.has_method(\"process\"):
+		print(\"[Stater]: No 'process' in new state: \" + name)
+		return
+	state_ = newState
+	# Load
+	if state_.has_method('start'):
+		state_.call(\"start\", get_parent(), args)"
+
+[node name="states" type="Node"]
+
+script = SubResource( 1 )
+state = "start"
+active = true
+
+
