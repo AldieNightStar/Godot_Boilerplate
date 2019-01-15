@@ -49,7 +49,7 @@ class StateNode extends Node:
 			return null
 		return states_node.get_node(name)
 	
-	func change(name: String, args=[]):
+	func change(name, args=[]):
 		if !name: return false
 		var state_node = _find_state(name)
 		if !state_node: return false
