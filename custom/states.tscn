@@ -6,7 +6,7 @@ script/source = "extends Node
 
 ### API ###
 # current() - current state object
-# change(name) - change state
+# change(name) - change state (need first call)
 ###
 
 ### State funcs ###
@@ -15,12 +15,9 @@ script/source = "extends Node
 # func process(node, delta)
 ###
 
-export var state = 'start'
+var state = 'start'
 var state_
 export var active = true
-
-func _ready():
-	change(state)
 
 func _physics_process(delta):
 	if !active: return
@@ -61,10 +58,9 @@ func change(name, args=[]):
 	if state_.has_method('start'):
 		state_.call(\"start\", get_parent(), args)"
 
-[node name="states" type="Node"]
+[node name="states" type="Node" index="0"]
 
 script = SubResource( 1 )
-state = "start"
 active = true
 
 
