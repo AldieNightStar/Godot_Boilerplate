@@ -9,12 +9,6 @@ script/source = "extends Node
 # change(name) - change state (need first call)
 ###
 
-### State funcs ###
-# func start(node, args)
-# func stop(node)
-# func process(node, delta)
-###
-
 var state = 'start'
 var state_
 export var active = true
